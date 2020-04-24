@@ -1,4 +1,4 @@
-package com.nrbswift.spring4web.config;
+package com.nrbswift.spring4web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

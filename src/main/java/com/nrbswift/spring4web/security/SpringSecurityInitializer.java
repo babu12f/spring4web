@@ -1,4 +1,4 @@
-package com.nrbswift.spring4web.config;
+package com.nrbswift.spring4web.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
