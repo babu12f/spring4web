@@ -1,12 +1,15 @@
 package com.nrbswift.spring4web.dao;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @Entity
 @Table(name = "appuser")
-public class AppUser {
+public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,19 +22,19 @@ public class AppUser {
 
     private String password;
 
-    private boolean enabled;
+    private boolean active;
 
     private String role;
 
     public AppUser() {
     }
 
-    public AppUser(String name, String email, String username, String password, boolean enabled, String role) {
+    public AppUser(String name, String email, String username, String password, boolean active, String role) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.enabled = enabled;
+        this.active = active;
         this.role = role;
     }
 
@@ -75,12 +78,12 @@ public class AppUser {
         this.password = password;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getRole() {
@@ -91,11 +94,29 @@ public class AppUser {
         this.role = role;
     }
 
-    public List<String> getRoles() {
-        List<String> roles = new ArrayList<>();
-        roles.add("ROLE_USER");
-        roles.add("ROLE_ADMIN");
-        return roles;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return AuthorityUtils.createAuthorityList(this.role);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
     }
 
     @Override
@@ -106,7 +127,7 @@ public class AppUser {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", enabled=" + enabled +
+                ", active=" + active +
                 ", role='" + role + '\'' +
                 '}';
     }
