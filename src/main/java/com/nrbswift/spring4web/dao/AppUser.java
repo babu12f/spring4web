@@ -22,7 +22,7 @@ public class AppUser implements UserDetails {
 
     private String password;
 
-    private boolean active;
+    private boolean active = true;
 
     private String role;
 

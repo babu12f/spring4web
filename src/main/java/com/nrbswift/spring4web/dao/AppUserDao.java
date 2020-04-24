@@ -23,4 +23,8 @@ public class AppUserDao {
                 .add(Restrictions.eq("username", username))
                 .uniqueResult();
     }
+
+    public void registerUser(AppUser appUser) {
+        session().save(appUser);
+    }
 }
