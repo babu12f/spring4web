@@ -3,6 +3,7 @@ package com.nrbswift.spring4web.controllers;
 import com.nrbswift.spring4web.dao.AppUser;
 import com.nrbswift.spring4web.dao.AppUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,11 @@ public class HomeController {
         model.addAttribute("name", "Shofiullah babor");
 
         return "home";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLogin() {
+        return "login";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -52,5 +58,26 @@ public class HomeController {
         AppUser appUser = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         return "welcome <b>"+appUser+"</b>";
+    }
+
+    @RequestMapping("/both")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @ResponseBody
+    public String bothHome() {
+        return "both user and admin Home";
+    }
+
+    @RequestMapping("/adhome")
+    @Secured({"ROLE_ADMIN"})
+    @ResponseBody
+    public String adminHome() {
+        return "admin Home";
+    }
+
+    @RequestMapping("/ushome")
+    @Secured({"ROLE_USER"})
+    @ResponseBody
+    public String userHome() {
+        return "user Home";
     }
 }

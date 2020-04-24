@@ -5,7 +5,6 @@ import com.nrbswift.spring4web.dao.AppUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -18,18 +17,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+        CustomAuthenticationToken token = (CustomAuthenticationToken) authentication;
         AppUser appUser = appUserDao.findUserByUsername(token.getName());
 
-        if (!appUser.getPassword().equalsIgnoreCase(token.getCredentials().toString())) {
+        if (appUser == null || (!appUser.getPassword().equalsIgnoreCase(token.getCredentials().toString())
+                || !token.getMake().equalsIgnoreCase("babor"))) {
             throw new BadCredentialsException("The Credentials are Invalid");
         }
 
-        return new UsernamePasswordAuthenticationToken(appUser, appUser.getPassword(), appUser.getAuthorities());
+        return new CustomAuthenticationToken(appUser, appUser.getPassword(), appUser.getAuthorities(), token.getMake());
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.equals(authentication);
+        return CustomAuthenticationToken.class.equals(authentication);
     }
 }
