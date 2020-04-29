@@ -47,9 +47,10 @@ public class HomeController {
        Session session = sessionFactory.openSession();
        session.beginTransaction();
 
-        Integer id = (Integer) session.save(employee);
-        System.out.println(id);
+//        Integer id = (Integer) session.save(employee);
+//        System.out.println(id);
 //        session.persist(employee);
+        session.saveOrUpdate(employee);
 
        session.getTransaction().commit();
 
