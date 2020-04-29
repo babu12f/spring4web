@@ -1,6 +1,7 @@
 package com.nrbswift.spring4web.controllers;
 
 import com.nrbswift.spring4web.entity.Employee;
+import jdk.nashorn.internal.ir.EmptyNode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,15 +46,67 @@ public class HomeController {
         Employee employee = employee();
 
        Session session = sessionFactory.openSession();
-       session.beginTransaction();
 
-//        Integer id = (Integer) session.save(employee);
-//        System.out.println(id);
-//        session.persist(employee);
-        session.saveOrUpdate(employee);
-
-       session.getTransaction().commit();
+//       createEmployee(session);
+//        getEmployeeById(session);
+//        updateEmployeeById(session);
+        deleteEmployeeById(session);
 
         return "added";
+    }
+
+    private void createEmployee(Session session) {
+        Employee employee = employee();
+
+        session.beginTransaction();
+
+        session.persist(employee);
+
+        session.getTransaction().commit();
+    }
+
+    private void getEmployeeById(Session session) {
+        Employee emp = (Employee) session.get(Employee.class, 2);
+
+        if (emp != null) {
+            System.out.println(emp);
+        }
+        else {
+            System.out.println("employee with this id not exists");
+        }
+    }
+
+    private void updateEmployeeById(Session session) {
+        Employee emp = (Employee) session.get(Employee.class, 2);
+
+        if (emp != null) {
+            emp.setEmail("jhonDoe@k.com");
+            emp.setSalary(550D);
+
+            session.beginTransaction();
+
+            session.update(emp);
+
+            session.getTransaction().commit();
+        }
+        else {
+            System.out.println("employee with this id not exists");
+        }
+    }
+
+
+    private void deleteEmployeeById(Session session) {
+        Employee emp = (Employee) session.get(Employee.class, 2);
+
+        if (emp != null) {
+            session.beginTransaction();
+
+            session.delete(emp);
+
+            session.getTransaction().commit();
+        }
+        else {
+            System.out.println("employee with this id not exists");
+        }
     }
 }

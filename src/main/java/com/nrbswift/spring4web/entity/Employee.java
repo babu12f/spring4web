@@ -1,10 +1,13 @@
 package com.nrbswift.spring4web.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "employees")
+@DynamicUpdate
 public class Employee {
 
     @Id
@@ -59,5 +62,16 @@ public class Employee {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", employeeName='" + employeeName + '\'' +
+                ", email='" + email + '\'' +
+                ", doj=" + doj +
+                ", salary=" + salary +
+                '}';
     }
 }
