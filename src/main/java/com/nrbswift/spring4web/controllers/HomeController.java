@@ -1,6 +1,7 @@
 package com.nrbswift.spring4web.controllers;
 
 import com.nrbswift.spring4web.entity.Employee;
+import com.nrbswift.spring4web.service.impl.EmployeeService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class HomeController {
 
     @Autowired
     SessionFactory sessionFactory;
+
+    @Autowired
+    EmployeeService employeeService;
 
     private Session session() {
         return sessionFactory.getCurrentSession();
@@ -41,14 +45,10 @@ public class HomeController {
     @ResponseBody
     public String showHome() {
 
-        Employee employee = employee();
-
-        Session session = sessionFactory.openSession();
-
-       createEmployee(session);
-//        getEmployeeById(session);
-//        updateEmployeeById(session);
-//        deleteEmployeeById(session);
+//        createEmployee();
+        getEmployeeById();
+        updateEmployeeById();
+        deleteEmployeeById();
 
 
         return "added";
@@ -72,58 +72,20 @@ public class HomeController {
         session.getTransaction().commit();
     }
 
-    private void createEmployee(Session session) {
-        Employee employee = employee();
-
-        session.beginTransaction();
-
-        session.persist(employee);
-
-        session.getTransaction().commit();
+    private void createEmployee() {
+        employeeService.createEmployee(employee());
     }
 
-    private void getEmployeeById(Session session) {
-        Employee emp = (Employee) session.get(Employee.class, 2);
-
-        if (emp != null) {
-            System.out.println(emp);
-        }
-        else {
-            System.out.println("employee with this id not exists");
-        }
+    private void getEmployeeById() {
+        employeeService.getEmployeeById(4);
     }
 
-    private void updateEmployeeById(Session session) {
-        Employee emp = (Employee) session.get(Employee.class, 2);
-
-        if (emp != null) {
-            emp.setEmail("jhonDoe@k.com");
-            emp.setSalary(550D);
-
-            session.beginTransaction();
-
-            session.update(emp);
-
-            session.getTransaction().commit();
-        }
-        else {
-            System.out.println("employee with this id not exists");
-        }
+    private void updateEmployeeById() {
+        employeeService.updateEmployeeById(4, 41247D);
     }
 
 
-    private void deleteEmployeeById(Session session) {
-        Employee emp = (Employee) session.get(Employee.class, 2);
-
-        if (emp != null) {
-            session.beginTransaction();
-
-            session.delete(emp);
-
-            session.getTransaction().commit();
-        }
-        else {
-            System.out.println("employee with this id not exists");
-        }
+    private void deleteEmployeeById() {
+       employeeService.deleteEmployeeById(4);
     }
 }

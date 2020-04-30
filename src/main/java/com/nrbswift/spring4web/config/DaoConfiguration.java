@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 @EnableTransactionManagement
 @Configuration
-@ComponentScan({"com.nrbswift.spring4web.dao"})
+@ComponentScan({"com.nrbswift.spring4web.dao", "com.nrbswift.spring4web.service"})
 public class DaoConfiguration {
 
     @Autowired
