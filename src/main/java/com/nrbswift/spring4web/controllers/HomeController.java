@@ -1,13 +1,11 @@
 package com.nrbswift.spring4web.controllers;
 
 import com.nrbswift.spring4web.entity.Employee;
-import jdk.nashorn.internal.ir.EmptyNode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,14 +43,33 @@ public class HomeController {
 
         Employee employee = employee();
 
-       Session session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
-//       createEmployee(session);
+       createEmployee(session);
 //        getEmployeeById(session);
 //        updateEmployeeById(session);
-        deleteEmployeeById(session);
+//        deleteEmployeeById(session);
+
 
         return "added";
+    }
+
+    @RequestMapping("/dc/{id}")
+    @ResponseBody
+    public String dc(@PathVariable("id") Integer id) {
+        dirtyCheck(id);
+
+        return "dirty check";
+    }
+
+    private void dirtyCheck(Integer id) {
+        Session session = sessionFactory.openSession();
+        Employee emp = (Employee) session.get(Employee.class, id);
+        session.beginTransaction();
+
+        emp.setSalary((double) 531);
+
+        session.getTransaction().commit();
     }
 
     private void createEmployee(Session session) {
