@@ -15,4 +15,9 @@ public class HomeController {
     public String showChat() {
         return "chat";
     }
+
+    @RequestMapping("/chat2")
+    public String showChat2() {
+        return "chat2";
+    }
 }
