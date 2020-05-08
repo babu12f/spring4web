@@ -10,4 +10,9 @@ public class HomeController {
     public String showHome() {
         return "home";
     }
+
+    @RequestMapping("/chat")
+    public String showChat() {
+        return "chat";
+    }
 }
