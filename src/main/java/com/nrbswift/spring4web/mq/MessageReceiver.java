@@ -7,34 +7,46 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageListener;
 
 @Component
-public class MessageReceiver {
-    @Autowired
-    JmsTemplate jmsTemplate;
+public class MessageReceiver implements MessageListener {
+//    @Autowired
+//    JmsTemplate jmsTemplate;
 
     @Autowired
     MessageConverter messageConverter;
 
-    public String receiveMessage() {
+    @Override
+    public void onMessage(Message message) {
         try {
-            Message message = jmsTemplate.receive();
-            String response = (String) messageConverter.fromMessage(message);
-            return response;
+            Product product = (Product) messageConverter.fromMessage(message);
+            System.out.println("======================== Message Receive ===========================");
+            System.out.println(product);
         } catch (JMSException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public Product receiveObjectMessage() {
-        try {
-            Message message = jmsTemplate.receive();
-            Product product = (Product) messageConverter.fromMessage(message);
-            return product;
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public String receiveMessage() {
+//        try {
+//            Message message = jmsTemplate.receive();
+//            String response = (String) messageConverter.fromMessage(message);
+//            return response;
+//        } catch (JMSException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    public Product receiveObjectMessage() {
+//        try {
+//            Message message = jmsTemplate.receive();
+//            Product product = (Product) messageConverter.fromMessage(message);
+//            return product;
+//        } catch (JMSException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 }

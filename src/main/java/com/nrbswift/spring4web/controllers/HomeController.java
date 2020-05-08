@@ -42,9 +42,10 @@ public class HomeController {
     @RequestMapping("/receive")
     @ResponseBody
     public String receiveMessageToQueue() {
-        String message = messageReceiver.receiveMessage();
+//        String message = messageReceiver.receiveMessage();
 
-        return "message from queue : >>>> " + message;
+//        return "message from queue : >>>> " + message;
+        return "";
     }
 
     @RequestMapping("/sendobj")
@@ -67,8 +68,9 @@ public class HomeController {
     @RequestMapping("/rcvobj")
     @ResponseBody
     public String receiveObjMessageToQueue() {
-        Product product = messageReceiver.receiveObjectMessage();
+//        Product product = messageReceiver.receiveObjectMessage();
 
-        return "message from queue : >>>> " + product;
+//        return "message from queue : >>>> " + product;
+        return "";
     }
 }
