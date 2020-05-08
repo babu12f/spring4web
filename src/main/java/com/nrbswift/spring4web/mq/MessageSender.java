@@ -25,4 +25,15 @@ public class MessageSender {
             }
         });
     }
+
+    public void sendObjectMessage(final Product product) {
+
+        jmsTemplate.send(new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                ObjectMessage objectMessage = session.createObjectMessage(product);
+                return objectMessage;
+            }
+        });
+    }
 }

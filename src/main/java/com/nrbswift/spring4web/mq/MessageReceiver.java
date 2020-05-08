@@ -26,4 +26,15 @@ public class MessageReceiver {
         }
         return null;
     }
+
+    public Product receiveObjectMessage() {
+        try {
+            Message message = jmsTemplate.receive();
+            Product product = (Product) messageConverter.fromMessage(message);
+            return product;
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
