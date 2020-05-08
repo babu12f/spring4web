@@ -2,7 +2,6 @@ package com.nrbswift.spring4web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -15,7 +14,6 @@ import javax.sql.DataSource;
 
 @EnableTransactionManagement
 @Configuration
-@ComponentScan({"com.nrbswift.spring4web.dao"})
 public class DaoConfiguration {
 
     @Autowired
