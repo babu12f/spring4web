@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.nrbswift.spring4web.controllers"})
+@ComponentScan(basePackages = {"com.nrbswift.spring4web"})
 @PropertySource(value = { "classpath:application.properties" })
 @Import({DaoConfiguration.class, HibernateConfiguration.class})
 public class MyAppConfiguration extends WebMvcConfigurerAdapter {
