@@ -1,7 +1,9 @@
 package com.nrbswift.spring4web.config;
 
+import com.nrbswift.spring4web.interceptor.MyInterceptor;
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -27,5 +29,10 @@ public class MyAppConfiguration extends WebMvcConfigurerAdapter {
         registry
                 .addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/asset/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns(new String[] {"/", "/admin/**"});
     }
 }
