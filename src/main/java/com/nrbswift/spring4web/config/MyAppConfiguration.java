@@ -2,6 +2,8 @@ package com.nrbswift.spring4web.config;
 
 import com.nrbswift.spring4web.interceptor.MyInterceptor;
 import org.springframework.context.annotation.*;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,6 +24,11 @@ public class MyAppConfiguration extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
     }
 
     @Override
