@@ -87,28 +87,27 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/file",  method = RequestMethod.POST)
-    public String postUploadForm(@RequestParam("mypic") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String postUploadForm(@RequestParam("mypic") MultipartFile[] files, RedirectAttributes redirectAttributes) {
 
         String UPLOADED_FOLDER = WebContextHolderUtils.get().getServletContext().getRealPath("/") + "upload\\";
 
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:uploadStatus";
-        }
+        for (MultipartFile file: files) {
 
-        try {
-            byte[] bytes = file.getBytes();
-            if (!(new File(UPLOADED_FOLDER).exists())) {
-                new File(UPLOADED_FOLDER).mkdir();
+            if (file.isEmpty()) {
+                continue;
             }
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
 
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+            try {
+                byte[] bytes = file.getBytes();
+                if (!(new File(UPLOADED_FOLDER).exists())) {
+                    new File(UPLOADED_FOLDER).mkdir();
+                }
+                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                Files.write(path, bytes);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return "redirect:/file";

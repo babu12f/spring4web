@@ -23,7 +23,10 @@
             <div class="form-group">
                 <label class=" control-label" for="mypic">File</label>
                 <div class="">
-                    <input id="mypic" name="mypic" class="input-file" type="file">
+<%--                    <input id="mypic" name="mypic" class="input-file" type="file" multiple />--%>
+                    <input id="mypic" name="mypic" class="input-file" type="file" />
+                    <input id="mypic" name="mypic" class="input-file" type="file" />
+                    <input id="mypic" name="mypic" class="input-file" type="file" />
                 </div>
             </div>
 
