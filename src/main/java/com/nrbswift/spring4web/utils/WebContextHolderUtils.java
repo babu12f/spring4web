@@ -30,7 +30,7 @@ public final class WebContextHolderUtils {
 
     private static WebContextHolderUtils INSTANCE = new WebContextHolderUtils();
 
-    public WebContextHolderUtils get() {
+    public static WebContextHolderUtils get() {
         return INSTANCE;
     }
 

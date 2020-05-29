@@ -6,6 +6,12 @@
     <meta charset="UTF-8">
     <title>Spring Web</title>
     <link href="<c:url value='/'/>static/css/style.css" rel="stylesheet" type="text/css"/>
+    <style>
+        body {
+            padding-top: 50px;
+            color: green;
+        }
+    </style>
 </head>
 <body>
     <h1>Running spring app form jsp</h1>
