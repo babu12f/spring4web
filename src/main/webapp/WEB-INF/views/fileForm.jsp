@@ -43,5 +43,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.0.min.js"></script>
+
+<script src="<c:url value='/'/>static/js/app.js"></script>
 </body>
 </html>
