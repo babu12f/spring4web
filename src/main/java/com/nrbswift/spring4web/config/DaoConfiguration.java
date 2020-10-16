@@ -26,8 +26,9 @@ public class DaoConfiguration {
         return (DataSource) new JndiTemplate().lookup(environment.getRequiredProperty("jdbc.jndi.connection.name"));
     }
 
-    @Bean
-    public DataSourceTransactionManager transactionManager() throws NamingException {
-        return new DataSourceTransactionManager(dataSource());
-    }
+//    for entitymanager implementation we use jpa transactionmanager
+//    @Bean
+//    public DataSourceTransactionManager transactionManager() throws NamingException {
+//        return new DataSourceTransactionManager(dataSource());
+//    }
 }
