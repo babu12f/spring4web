@@ -77,7 +77,7 @@ public class HibernateConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource);
-        entityManagerFactory.setPackagesToScan(new String[] { "com.nrbswift.spring4web.dao" });
+        entityManagerFactory.setPackagesToScan(new String[] { "com.nrbswift.spring4web" });
         entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter());
         entityManagerFactory.setJpaProperties(additionalProperties());
         return entityManagerFactory;

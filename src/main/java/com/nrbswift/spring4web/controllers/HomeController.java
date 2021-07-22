@@ -2,6 +2,7 @@ package com.nrbswift.spring4web.controllers;
 
 import com.nrbswift.spring4web.dao.User;
 import com.nrbswift.spring4web.dao.UserDAO;
+import com.nrbswift.spring4web.services.ProductService;
 import com.nrbswift.spring4web.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,6 +22,9 @@ public class HomeController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping("/")
     public String showHome(Model model) {
 
@@ -37,4 +41,14 @@ public class HomeController {
 
         return "home";
     }
+
+    @RequestMapping("/saveprod")
+    @ResponseBody
+    public String saveProduct() {
+
+        productService.saveProduct();
+
+        return "product save";
+    }
+
 }
