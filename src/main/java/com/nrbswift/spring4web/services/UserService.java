@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Transactional
 @Component
 public class UserService {
 
@@ -28,5 +27,17 @@ public class UserService {
 
     public List<User> getUsers() {
         return entityManager.createQuery("FROM User").getResultList();
+    }
+
+    public User saveUser() {
+        entityManager.getTransaction().begin();
+
+        User user = new User("username", "name", "password", "email", true);
+
+        entityManager.persist(user);
+
+        entityManager.getTransaction().commit();
+
+        return user;
     }
 }
