@@ -25,7 +25,7 @@ public class ProductService {
         p1.setId(201);
         p1.setName("Apple");
         p1.setPrice(10.4);
-        p1.setExpirationDate(new Date());
+        /*p1.setExpirationDate(new Date());*/
 
         entityManager.getTransaction().begin();
 
@@ -39,7 +39,7 @@ public class ProductService {
         p2.setId(202);
         p2.setName("Apple");
         p2.setPrice(10.4);
-        p2.setExpirationDate(new Date());
+        /*p2.setExpirationDate(new Date());*/
 
         EntityManager em2 = entityManagerFactory.createEntityManager();
 

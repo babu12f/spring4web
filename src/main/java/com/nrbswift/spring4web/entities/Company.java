@@ -1,10 +1,14 @@
 package com.nrbswift.spring4web.entities;
 
-import com.nrbswift.spring4web.entities.embeddables.Address;
-
 import javax.persistence.*;
 
 @Entity
+@SecondaryTables({
+        @SecondaryTable(name = "address",
+                pkJoinColumns = @PrimaryKeyJoinColumn(name = "company")),
+        @SecondaryTable(name = "miscellaneous",
+                pkJoinColumns = @PrimaryKeyJoinColumn(name = "company"))
+})
 public class Company {
 
     @Id
@@ -13,8 +17,14 @@ public class Company {
 
     private String name;
 
-    @Embedded
-    private Address address;
+    @Column(table = "address")
+    private String street;
+
+    @Column(table = "address")
+    private String number;
+
+    @Column(table = "miscellaneous")
+    private String details;
 
     public int getId() {
         return id;
@@ -32,11 +42,27 @@ public class Company {
         this.name = name;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 }

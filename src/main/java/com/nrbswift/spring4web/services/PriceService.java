@@ -1,7 +1,9 @@
 package com.nrbswift.spring4web.services;
 
 import com.nrbswift.spring4web.entities.Company;
+import com.nrbswift.spring4web.entities.Detail;
 import com.nrbswift.spring4web.entities.Price;
+import com.nrbswift.spring4web.entities.Product;
 import com.nrbswift.spring4web.entities.embeddables.Address;
 import com.nrbswift.spring4web.entities.enums.Currency;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class PriceService {
         price.setCurrency(Currency.USD);
         em.persist(price);*/
 
-        Company c = new Company();
+        /*Company c = new Company();
         c.setName("ABC");
         c.setAddress(new Address());
 
@@ -36,7 +38,31 @@ public class PriceService {
         c.getAddress().setStreet("Some Street");
         c.getAddress().setCity("London");
 
-        em.persist(c);
+        em.persist(c);*/
+
+        /*Company c1 = new Company();
+        c1.setName("XYZ");
+        c1.setStreet("Street 1");
+        c1.setNumber("A1");
+        c1.setDetails("DETAILS");
+        em.persist(c1);*/
+
+        //Product fp = em.find(Product.class, 6);
+
+        //System.out.println(fp.getDetail().getKcal());
+
+        /*Product p = new Product();
+        p.setName("Berry blue");
+        p.setPrice(5);
+        //em.persist(p);
+
+        Detail d = new Detail();
+        d.setKcal(400);
+
+        d.setProduct(p);
+        p.setDetail(d);
+
+        em.persist(d);*/
 
         em.getTransaction().commit();
         em.close();
