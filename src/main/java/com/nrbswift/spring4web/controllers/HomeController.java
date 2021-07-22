@@ -2,6 +2,7 @@ package com.nrbswift.spring4web.controllers;
 
 import com.nrbswift.spring4web.dao.User;
 import com.nrbswift.spring4web.dao.UserDAO;
+import com.nrbswift.spring4web.services.OneToManyService;
 import com.nrbswift.spring4web.services.PriceService;
 import com.nrbswift.spring4web.services.ProductService;
 import com.nrbswift.spring4web.services.UserService;
@@ -28,6 +29,9 @@ public class HomeController {
 
     @Autowired
     private PriceService priceService;
+
+    @Autowired
+    private OneToManyService oneToManyService;
 
     @RequestMapping("/")
     public String showHome(Model model) {
@@ -62,6 +66,15 @@ public class HomeController {
         priceService.savePrice();
 
         return "price save";
+    }
+
+    @RequestMapping("/o2m")
+    @ResponseBody
+    public String runOneToMany() {
+
+        oneToManyService.runOneToMany();
+
+        return "One to many done";
     }
 
 }
