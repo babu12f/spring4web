@@ -2,6 +2,7 @@ package com.nrbswift.spring4web.controllers;
 
 import com.nrbswift.spring4web.dao.User;
 import com.nrbswift.spring4web.dao.UserDAO;
+import com.nrbswift.spring4web.services.PriceService;
 import com.nrbswift.spring4web.services.ProductService;
 import com.nrbswift.spring4web.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PriceService priceService;
 
     @RequestMapping("/")
     public String showHome(Model model) {
@@ -49,6 +53,15 @@ public class HomeController {
         productService.saveProduct();
 
         return "product save";
+    }
+
+    @RequestMapping("/price")
+    @ResponseBody
+    public String savePrice() {
+
+        priceService.savePrice();
+
+        return "price save";
     }
 
 }
