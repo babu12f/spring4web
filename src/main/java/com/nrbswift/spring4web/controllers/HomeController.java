@@ -28,9 +28,6 @@ public class HomeController {
     private PriceService priceService;
 
     @Autowired
-    private OneToManyService oneToManyService;
-
-    @Autowired
     private ManyToManyService manyToManyService;
 
     @RequestMapping("/")
@@ -71,8 +68,6 @@ public class HomeController {
     @RequestMapping("/o2m")
     @ResponseBody
     public String runOneToMany() {
-
-        oneToManyService.runOneToMany();
 
         return "One to many done";
     }
