@@ -11,6 +11,7 @@ import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -91,7 +92,20 @@ public class EmployeeServiceCriteria {
         CriteriaQuery<Object[]> criteriaQuery = builder.createQuery(Object[].class);
         Root<Employee> root = criteriaQuery.from(Employee.class);
 
-        criteriaQuery.select(builder.array(root.get("employeeName"), root.get("email"), root.get("salary")));
+        /*
+        * 1st way
+        * */
+        //criteriaQuery.select(builder.array(root.get("employeeName"), root.get("email"), root.get("salary")));
+        //criteriaQuery.multiselect(root.get("employeeName"), root.get("email"), root.get("salary"));
+
+        /*
+        * 2nd way
+        * */
+        Path<Object> namePath = root.get("employeeName");
+        Path<Object> emailPath = root.get("email");
+        Path<Object> salaryPath = root.get("salary");
+        //criteriaQuery.select(builder.array(namePath, emailPath, salaryPath));
+        criteriaQuery.multiselect(namePath, emailPath, salaryPath);
 
         TypedQuery<Object[]> query = em.createQuery(criteriaQuery);
 
@@ -115,8 +129,19 @@ public class EmployeeServiceCriteria {
         CriteriaQuery<EmployeeDTO> criteriaQuery = builder.createQuery(EmployeeDTO.class);
         Root<Employee> root = criteriaQuery.from(Employee.class);
 
-        criteriaQuery.select(builder.construct(EmployeeDTO.class,
-                root.get("employeeName"), root.get("doj"), root.get("salary")));
+        /*
+        * 1st way
+        * */
+        /*criteriaQuery.select(builder.construct(EmployeeDTO.class,
+                root.get("employeeName"), root.get("doj"), root.get("salary")));*/
+
+        /*
+        * 2nd way
+        * */
+        Path<Object> namePath = root.get("employeeName");
+        Path<Object> dojPath = root.get("doj");
+        Path<Object> salaryPath = root.get("salary");
+        criteriaQuery.select(builder.construct(EmployeeDTO.class, namePath, dojPath, salaryPath));
 
         TypedQuery<EmployeeDTO> query = em.createQuery(criteriaQuery);
 
@@ -134,16 +159,23 @@ public class EmployeeServiceCriteria {
         CriteriaQuery<Tuple> criteriaQuery = builder.createQuery(Tuple.class);
         Root<Employee> root = criteriaQuery.from(Employee.class);
 
-        criteriaQuery.multiselect(root.get("employeeId"), root.get("email"));
+        //criteriaQuery.multiselect(root.get("employeeId"), root.get("email"));
+
+        Path<Object> idPath = root.get("employeeId");
+        Path<Object> emailPath = root.get("email");
+        Path<Object> salaryPath = root.get("salary");
+
+        criteriaQuery.multiselect(idPath, emailPath, salaryPath);
 
         TypedQuery<Tuple> query = em.createQuery(criteriaQuery);
 
         List<Tuple> tupleList = query.getResultList();
 
         for (Tuple tuple : tupleList) {
-            Integer id = (Integer) tuple.get(0);
-            String email = (String) tuple.get(1);
-            System.out.println("Employee ID: " + id + ", Email: " + email);
+            Integer id = (Integer) tuple.get(idPath);
+            String email = (String) tuple.get(emailPath);
+            Double salary = (double) tuple.get(salaryPath);
+            System.out.println("Employee ID: " + id + ", Email: " + email + " Salary : " + salary);
         }
     }
 
