@@ -1,29 +1,77 @@
 package com.nrbswift.spring4web.entities;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@Table(name = "employees")
+@DynamicUpdate
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer employeeId;
 
-    private String name;
+    @Column(nullable = false, length = 120)
+    private String employeeName;
 
-    public int getId() {
-        return id;
+    @Column(unique = true)
+    private String email;
+
+    @Column(name = "date_of_joining")
+    private Date doj;
+    private Double salary;
+
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getDoj() {
+        return doj;
+    }
+
+    public void setDoj(Date doj) {
+        this.doj = doj;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", employeeName='" + employeeName + '\'' +
+                ", email='" + email + '\'' +
+                ", doj=" + doj +
+                ", salary=" + salary +
+                '}';
     }
 }
