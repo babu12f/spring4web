@@ -37,10 +37,13 @@ public class EmployeeController {
          *
          *
           personService.saveSampleData();
+          personService.saveSampleDataPhoneCall();
 
          * */
 
-        personService.getMultiRootData();
+        //personService.getMultiRootData();
+
+        personService.joinUsingCriteriaBuilder();
 
         return "testEmployee";
     }
